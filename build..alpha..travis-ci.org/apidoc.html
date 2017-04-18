@@ -1,0 +1,319 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/arjunmehta/node-geo-proximity"
+
+    >geo-proximity (v2.3.2)</a>
+</h1>
+<h4>Super fast proximity searches of geo coordinates.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.geo-proximity">module geo-proximity</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">geo-proximity.</span>caching</span>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.geo-proximity.range">
+            function <span class="apidocSignatureSpan">geo-proximity.</span>range
+            <span class="apidocSignatureSpan">(lat, lon, radius, caching)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">geo-proximity.</span>query</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">geo-proximity.</span>zset</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.geo-proximity.query">module geo-proximity.query</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.geo-proximity.query.location">
+            function <span class="apidocSignatureSpan">geo-proximity.query.</span>location
+            <span class="apidocSignatureSpan">(set, location_name, callBack)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.geo-proximity.query.locations">
+            function <span class="apidocSignatureSpan">geo-proximity.query.</span>locations
+            <span class="apidocSignatureSpan">(set, location_name_array, callBack)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.geo-proximity.query.queryByRanges">
+            function <span class="apidocSignatureSpan">geo-proximity.query.</span>queryByRanges
+            <span class="apidocSignatureSpan">(set, ranges, with_values, callBack)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.geo-proximity.range">module geo-proximity.range</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.geo-proximity.range.range">
+            function <span class="apidocSignatureSpan">geo-proximity.</span>range
+            <span class="apidocSignatureSpan">(lat, lon, radius, caching)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.geo-proximity" id="apidoc.module.geo-proximity">module geo-proximity</a></h1>
+
+
+
+
+    <h2>
+        <a href="#apidoc.element.geo-proximity.range" id="apidoc.element.geo-proximity.range">
+        function <span class="apidocSignatureSpan">geo-proximity.</span>range
+        <span class="apidocSignatureSpan">(lat, lon, radius, caching)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getQueryRangesFromRadius(lat, lon, radius, caching) {
+    return getQueryRangesFromBitDepth(lat, lon, rangeDepth(radius), 52, caching);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.geo-proximity.query" id="apidoc.module.geo-proximity.query">module geo-proximity.query</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.geo-proximity.query.location" id="apidoc.element.geo-proximity.query.location">
+        function <span class="apidocSignatureSpan">geo-proximity.query.</span>location
+        <span class="apidocSignatureSpan">(set, location_name, callBack)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function location(set, location_name, callBack) {
+
+    set.client.zscore(set.zset, location_name, function(err, reply) {
+
+        if (err) {
+            if (typeof callBack === &#x22;function&#x22;) callBack(err, null);
+        } else {
+            if (typeof callBack === &#x22;function&#x22;) callBack(null, parseLocation(location_name, reply));
+        }
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+})
+```
+
+
+### Recall the Coordinates of a Location
+
+```javascript
+proximity.<span class="apidocCodeKeywordSpan">location</span>(&#x27;Toronto&#x27;, function(err, location){
+  if(err) console.error(err)
+  else console.log(location.name + &#x22;&#x27;s location is:&#x22;, location.latitude, location.longitude)
+})
+```
+
+Or for multiple locations:
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.geo-proximity.query.locations" id="apidoc.element.geo-proximity.query.locations">
+        function <span class="apidocSignatureSpan">geo-proximity.query.</span>locations
+        <span class="apidocSignatureSpan">(set, location_name_array, callBack)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function locations(set, location_name_array, callBack) {
+
+    var multi = set.client.multi(),
+        i;
+
+    for (i = 0; i &#x3c; location_name_array.length; i++) {
+        multi.zscore(set.zset, location_name_array[i]);
+    }
+
+    multi.exec(function(err, replies) {
+
+        if (err) {
+            if (typeof callBack === &#x22;function&#x22;) callBack(err, null);
+        } else {
+
+            var concatedReplies = [];
+
+            for (i = 0; i &#x3c; replies.length; i++) {
+                concatedReplies.push(parseLocation(location_name_array[i], replies[i]));
+            }
+
+            if (typeof callBack === &#x27;function&#x27;) callBack(null, concatedReplies);
+        }
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  else console.log(location.name + &#x22;&#x27;s location is:&#x22;, location.latitude, location.longitude)
+})
+```
+
+Or for multiple locations:
+
+```javascript
+proximity.<span class="apidocCodeKeywordSpan">locations</span>([&#x27;Toronto&#x27;, &#x27;Philadelphia&#x27;, &#x27;Palo Alto&#
+x27;, &#x27;San Francisco&#x27;, &#x27;Ottawa&#x27;], function(err, locations){
+  if(err) console.error(err)
+  else {
+    for(var i = 0; i &#x3c; locations.length; i++)
+      console.log(locations[i].name + &#x22;&#x27;s location is:&#x22;, locations[i].latitude, locations[i].longitude)
+  }
+})
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.geo-proximity.query.queryByRanges" id="apidoc.element.geo-proximity.query.queryByRanges">
+        function <span class="apidocSignatureSpan">geo-proximity.query.</span>queryByRanges
+        <span class="apidocSignatureSpan">(set, ranges, with_values, callBack)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function queryByRanges(set, ranges, with_values, callBack) {
+
+    var multi = set.client.multi();
+
+    if (with_values === undefined) {
+        buildMultiWithoutValues(ranges, set.zset, multi);
+    } else {
+        buildMultiWithValues(ranges, set.zset, multi);
+    }
+
+    multi.exec(function(err, replies) {
+
+        if (err) {
+            if (typeof callBack === &#x27;function&#x27;) callBack(err, null);
+        } else {
+            if (with_values) processResultsWithValues(replies, callBack);
+            else processResultsWithoutValues(replies, callBack);
+        }
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.geo-proximity.range" id="apidoc.module.geo-proximity.range">module geo-proximity.range</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.geo-proximity.range.range" id="apidoc.element.geo-proximity.range.range">
+        function <span class="apidocSignatureSpan">geo-proximity.</span>range
+        <span class="apidocSignatureSpan">(lat, lon, radius, caching)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getQueryRangesFromRadius(lat, lon, radius, caching) {
+    return getQueryRangesFromBitDepth(lat, lon, rangeDepth(radius), 52, caching);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
